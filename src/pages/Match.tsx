@@ -154,6 +154,7 @@ const Match = () => {
   }, [updateJourneeStats]);
 
   const validatedCount = Object.values(matches).filter((m) => m.validated).length;
+  const allValidated = validatedCount === 5;
 
   const getUsedTeams = (excludeMatchIndex?: number) => {
     const used = new Set<string>();
@@ -226,6 +227,7 @@ const Match = () => {
   };
 
   const handleExemptChange = (value: string) => {
+    // Check if team is used in matches
     const used = getUsedTeams();
     if (used.has(value) && value !== exempt) {
       toast.warning("⚠️ Cette équipe est déjà dans un match !");
@@ -241,12 +243,13 @@ const Match = () => {
     setShowPicker(false);
   };
 
+  // CSV Import handlers
   const parseCSV = (content: string): MatchData[] => {
     const lines = content.trim().split("\n");
     const matches: MatchData[] = [];
     
     lines.forEach((line, idx) => {
-      if (idx === 0 && line.toLowerCase().includes("home")) return;
+      if (idx === 0 && line.toLowerCase().includes("home")) return; // Skip header
       const parts = line.split(/[,;]/).map(p => p.trim().toUpperCase());
       if (parts.length >= 4) {
         const homeTeam = parts[0];
@@ -287,6 +290,7 @@ const Match = () => {
       }
 
       if (!isSeason) {
+        // Import single journée
         const newMatches: Record<number, MatchData> = createEmptyMatches();
         parsedMatches.slice(0, 5).forEach((m, i) => {
           newMatches[i + 1] = m;
@@ -294,6 +298,8 @@ const Match = () => {
         setMatches(newMatches);
         toast.success(`${Math.min(parsedMatches.length, 5)} matchs importés !`);
       } else {
+        // Import full season (multiple journées)
+        // Simplified: just import current journée
         const newMatches: Record<number, MatchData> = createEmptyMatches();
         parsedMatches.slice(0, 5).forEach((m, i) => {
           newMatches[i + 1] = m;
@@ -309,13 +315,21 @@ const Match = () => {
 
   const currentChamp = CHAMPIONNATS.find(c => c.id === championnat);
 
+  const pickerSelections = {
+    championnat: CHAMPIONNATS.map(c => c.id),
+    season: SAISONS,
+    journee: JOURNEES
+  };
+
   return (
     <div className="phone-screen">
       <div className="content-container match-content">
+        {/* Title with glassmorphism + glow */}
         <div className="match-title-glass">
           <h1 className="match-page-title">MATCH</h1>
         </div>
 
+        {/* 4-Segment Selection Bar */}
         <div className="match-segment-bar">
           <button 
             className="match-segment"
@@ -366,6 +380,7 @@ const Match = () => {
           )}
         </div>
 
+        {/* Hidden file inputs */}
         <input
           ref={fileInputRef}
           type="file"
@@ -381,6 +396,7 @@ const Match = () => {
           onChange={(e) => handleFileImport(e, true)}
         />
 
+        {/* Tableau des Matchs */}
         <div className="matches-card">
           <div className="matches-header">
             <span>ÉQUIPE DOM.</span>
@@ -392,6 +408,7 @@ const Match = () => {
             const match = matches[matchIdx];
             const usedTeams = getUsedTeams(matchIdx);
             
+            // Long press handler for validated matches
             const longPressHandlers = useLongPress(() => {
               if (match.validated) {
                 setShowEditModal(matchIdx);
@@ -404,8 +421,10 @@ const Match = () => {
                 className={`match-row ${match.validated ? "validated" : ""} ${matchIdx === 1 ? "first" : ""}`}
                 {...(match.validated ? longPressHandlers : {})}
               >
+                {/* Small discrete checkmark for validated matches */}
                 {match.validated && <span className="match-validated-check">✓</span>}
                 
+                {/* Home Team Select */}
                 <select
                   className="team-select"
                   value={match.homeTeam}
@@ -423,6 +442,7 @@ const Match = () => {
                     ))}
                 </select>
 
+                {/* Score inputs */}
                 <div className="score-container">
                   <input
                     type="number"
@@ -447,6 +467,7 @@ const Match = () => {
                   />
                 </div>
 
+                {/* Away Team Select */}
                 <select
                   className="team-select"
                   value={match.awayTeam}
@@ -464,6 +485,7 @@ const Match = () => {
                     ))}
                 </select>
 
+                {/* Auto-validate button */}
                 {!match.validated && match.homeTeam && match.awayTeam && match.homeScore !== "" && match.awayScore !== "" && (
                   <button
                     className="auto-validate-btn"
@@ -477,6 +499,7 @@ const Match = () => {
           })}
         </div>
 
+        {/* Exempt Card - Bottom */}
         <div 
           className="match-exempt-bottom"
           onClick={() => setShowExemptPicker(true)}
@@ -491,11 +514,13 @@ const Match = () => {
 
       <BottomNav />
 
+      {/* Wheel Picker Modal */}
       {showPicker && (
         <div className="picker-overlay" onClick={() => setShowPicker(false)}>
           <div className="picker-modal" onClick={(e) => e.stopPropagation()}>
             <h2 className="picker-title">SÉLECTION</h2>
 
+            {/* Section 1: Championnats Horizontal */}
             <div className="picker-section">
               <span className="picker-section-label">CHAMPIONNAT</span>
               <div className="championnat-selector">
@@ -512,6 +537,7 @@ const Match = () => {
               </div>
             </div>
 
+            {/* Section 2: Saison + Journée Vertical */}
             <div className="picker-labels-bottom">
               <span>SAISON</span>
               <span>JOURNÉE</span>
@@ -563,6 +589,7 @@ const Match = () => {
         </div>
       )}
 
+      {/* Reset Confirmation Modal */}
       {showResetModal !== null && (
         <div className="reset-overlay" onClick={() => setShowResetModal(null)}>
           <div className="reset-modal" onClick={(e) => e.stopPropagation()}>
@@ -580,6 +607,7 @@ const Match = () => {
         </div>
       )}
 
+      {/* Edit Confirmation Modal (Long Press) */}
       {showEditModal !== null && (
         <div className="reset-overlay" onClick={() => setShowEditModal(null)}>
           <div className="reset-modal" onClick={(e) => e.stopPropagation()}>
@@ -597,6 +625,7 @@ const Match = () => {
         </div>
       )}
 
+      {/* Exempt Picker Modal */}
       {showExemptPicker && (
         <div className="picker-overlay" onClick={() => setShowExemptPicker(false)}>
           <div className="exempt-picker-modal" onClick={(e) => e.stopPropagation()}>
