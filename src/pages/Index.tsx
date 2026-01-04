@@ -33,6 +33,8 @@ const Index = () => {
   const progressPercent = 74;
   const currentMatchday = 53;
   const totalMatchdays = 72;
+
+  // Calculate stroke dasharray for circular progress
   const radius = 14;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
@@ -40,10 +42,12 @@ const Index = () => {
   return (
     <div className="phone-screen">
       <div className="content-container">
+        {/* Title with glassmorphism + glow */}
         <div className="classement-title-glass">
           <h1 className="classement-page-title">CLASSEMENT</h1>
         </div>
 
+        {/* Combined Menu */}
         <button className="classement-combined-menu">
           <span>🏆 Ligue des Hyènes</span>
           <span className="classement-menu-separator">•</span>
@@ -51,6 +55,7 @@ const Index = () => {
           <span className="classement-menu-arrow">▾</span>
         </button>
 
+        {/* Circular Progress Indicator */}
         <div className="classement-progress-row">
           <svg className="classement-progress-circle" width="36" height="36" viewBox="0 0 36 36">
             <defs>
@@ -59,13 +64,42 @@ const Index = () => {
                 <stop offset="100%" stopColor="#00ff88" />
               </linearGradient>
             </defs>
-            <circle cx="18" cy="18" r={radius} fill="none" stroke="rgba(0, 217, 255, 0.15)" strokeWidth="3" />
-            <circle cx="18" cy="18" r={radius} fill="none" stroke="url(#progressGradient)" strokeWidth="3" strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={strokeDashoffset} transform="rotate(-90 18 18)" />
-            <text x="18" y="18" textAnchor="middle" dominantBaseline="central" className="classement-progress-text">{progressPercent}%</text>
+            <circle
+              cx="18"
+              cy="18"
+              r={radius}
+              fill="none"
+              stroke="rgba(0, 217, 255, 0.15)"
+              strokeWidth="3"
+            />
+            <circle
+              cx="18"
+              cy="18"
+              r={radius}
+              fill="none"
+              stroke="url(#progressGradient)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={circumference}
+              strokeDashoffset={strokeDashoffset}
+              transform="rotate(-90 18 18)"
+            />
+            <text
+              x="18"
+              y="18"
+              textAnchor="middle"
+              dominantBaseline="central"
+              className="classement-progress-text"
+            >
+              {progressPercent}%
+            </text>
           </svg>
-          <span className="classement-progress-label">J.{currentMatchday} / {totalMatchdays} journées</span>
+          <span className="classement-progress-label">
+            J.{currentMatchday} / {totalMatchdays} journées
+          </span>
         </div>
 
+        {/* Ranking Table */}
         <div className="ranking-wrapper">
           <table className="ranking-table">
             <thead>
@@ -79,17 +113,27 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-              {teams.map((team) => (
-                <tr key={team.pos} className={getZoneClass(team.pos)}>
+              {teams.map((team, index) => (
+                <tr 
+                  key={team.pos} 
+                  className={`${getZoneClass(team.pos)} transition-colors duration-300`}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
                   <td style={{ paddingLeft: "12px" }}>
-                    <div className={`position-badge ${getPositionClass(team.pos)}`}>{team.pos}</div>
+                    <div className={`position-badge ${getPositionClass(team.pos)}`}>
+                      {team.pos}
+                    </div>
                   </td>
-                  <td style={{ textAlign: "left", paddingLeft: "8px" }}>
+                  <td style={{ textAlign: "left", paddingLeft: "8px", paddingRight: "2px" }}>
                     <span className="team-name">{team.name}</span>
                   </td>
                   <td className="points-cell">{team.pts}</td>
-                  <td className="stats-cell">{team.v}-{team.n}-{team.d}</td>
-                  <td className="stats-cell">{team.bp}-{team.bc}</td>
+                  <td className="stats-cell">
+                    {team.v}-{team.n}-{team.d}
+                  </td>
+                  <td className="stats-cell">
+                    {team.bp}-{team.bc}
+                  </td>
                   <td style={{ paddingRight: "10px", textAlign: "right" }}>
                     <span className={team.diff >= 0 ? "diff-positive" : "diff-negative"}>
                       {team.diff >= 0 ? `+${team.diff}` : team.diff}
@@ -101,6 +145,7 @@ const Index = () => {
           </table>
         </div>
 
+        {/* Caviste - Compact inline */}
         <div className="classement-caviste">
           <span className="classement-caviste-label">Caviste :</span>
           <span className="classement-caviste-value">GUNNERS</span>
@@ -108,6 +153,7 @@ const Index = () => {
 
         <div className="h-12" />
       </div>
+
       <BottomNav />
     </div>
   );
