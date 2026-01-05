@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HyeneScores - Maquette v3.1 - Corrections</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-black: #000000;
+      --cyan: #00d9ff;
+      --green: #00ff88;
+      --gold: #ffd700;
+      --orange: #ff9933;
+      --red: #ff4444;
+      --pink: #ff3366;
+      --glass-bg: rgba(0, 217, 255, 0.02);
+      --glass-border: rgba(0, 217, 255, 0.2);
+      --glass-border-strong: rgba(0, 217, 255, 0.4);
+      --glass-bg-header: rgba(0, 217, 255, 0.15);
+      --font-display: 'Rajdhani', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --zone-gold-bg: rgba(255, 215, 0, 0.15);
+      --zone-gold-border: rgba(255, 215, 0, 0.3);
+      --zone-green-bg: rgba(0, 255, 136, 0.15);
+      --zone-green-border: rgba(0, 255, 136, 0.3);
+      --zone-cyan-bg: rgba(0, 217, 255, 0.15);
+      --zone-cyan-border: rgba(0, 217, 255, 0.3);
+      --zone-orange-bg: rgba(255, 153, 51, 0.15);
+      --zone-orange-border: rgba(255, 153, 51, 0.3);
+      --zone-red-bg: rgba(255, 68, 68, 0.15);
+      --zone-red-border: rgba(255, 68, 68, 0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; font-family: var(--font-body); color: white; min-height: 100vh; padding: 20px; }
+    .maquette-header { text-align: center; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.05)); border: 1px solid var(--glass-border); border-radius: 16px; }
+    .maquette-header h1 { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--cyan); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; }
+    .maquette-header p { font-size: 14px; color: rgba(255, 255, 255, 0.6); }
+    .version-badge { display: inline-block; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-top: 10px; }
+    .section-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--glass-border); }
+    .phone-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(390px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; }
+    .phone-wrapper { display: flex; flex-direction: column; align-items: center; }
+    .phone-label { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .phone-label .status { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; background: rgba(0, 255, 136, 0.2); color: var(--green); border: 1px solid rgba(0, 255, 136, 0.4); }
+    .phone-frame { width: 390px; height: 844px; background: var(--bg-black); border-radius: 40px; border: 3px solid #333; overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 217, 255, 0.1); }
+    .phone-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 30px; background: #000; border-radius: 0 0 20px 20px; z-index: 100; }
+    .phone-content { height: 100%; overflow-y: auto; padding: 40px 8px 70px; }
+    .scroll-indicator { position: absolute; bottom: 75px; left: 50%; transform: translateX(-50%); background: var(--green); color: #000; padding: 4px 12px; border-radius: 12px; font-size: 10px; font-weight: 700; z-index: 60; }
+    .bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border-top: 1px solid rgba(0, 217, 255, 0.15); display: flex; justify-content: space-around; align-items: center; padding: 8px 4px 20px; z-index: 50; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 9px; opacity: 0.5; color: white; }
+    .nav-item.active { opacity: 1; color: var(--cyan); }
+    .nav-icon { font-size: 18px; }
+    .page-title { text-align: center; margin-bottom: 10px; padding: 10px 12px; background: rgba(0, 217, 255, 0.05); border: 1px solid var(--glass-border-strong); border-radius: 10px; box-shadow: 0 0 20px rgba(0, 217, 255, 0.1); }
+    .page-title h1 { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--cyan); text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 10px rgba(0, 217, 255, 0.8), 0 0 20px rgba(0, 217, 255, 0.5), 0 0 40px rgba(0, 217, 255, 0.3); }
+    .menu-combined { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 10px; padding: 8px 12px; margin-bottom: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .menu-combined .icon { font-size: 16px; }
+    .menu-combined .text { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px; }
+    .menu-combined .separator { color: rgba(255, 255, 255, 0.3); font-size: 12px; }
+    .menu-combined .arrow { font-size: 10px; color: rgba(255, 255, 255, 0.4); margin-left: 2px; }
+    .progress-circular { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px; padding: 0 4px; }
+    .progress-circular .circle-container { position: relative; width: 36px; height: 36px; }
+    .progress-circular .circle-bg { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 4; }
+    .progress-circular .circle-fill { fill: none; stroke: url(#gradient-progress); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 26; transform: rotate(-90deg); transform-origin: center; }
+    .progress-circular .circle-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: var(--font-body); font-size: 10px; font-weight: 800; color: var(--cyan); }
+    .progress-circular .info { font-family: var(--font-body); font-size: 11px; font-weight: 600; color: rgba(255, 255, 255, 0.7); }
+    .progress-circular .info strong { color: white; font-weight: 800; }
+    .glass-card { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 10px; overflow: hidden; }
+    .table-classement { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .table-classement thead { background: var(--glass-bg-header); }
+    .table-classement th { padding: 5px 1px; font-family: var(--font-body); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2px; color: white; border-bottom: 1px solid var(--glass-border-strong); text-align: center; }
+    .table-classement td { padding: 5px 1px; font-family: var(--font-display); color: white; border-bottom: 1px solid rgba(255, 255, 255, 0.03); text-align: center; vertical-align: middle; white-space: nowrap; }
+    .table-classement .col-pos { width: 26px; }
+    .table-classement .col-team { width: 100px; }
+    .table-classement .col-pts { width: 40px; }
+    .table-classement .col-vnd { width: 58px; }
+    .table-classement .col-bpbc { width: 52px; }
+    .table-classement .col-diff { width: 38px; }
+    .table-classement .team-name { font-size: 15px; font-weight: 800; text-transform: uppercase; text-align: left; padding-left: 2px; }
+    .table-classement .points-display { font-family: var(--font-body); font-size: 18px; font-weight: 800; color: white; text-shadow: 0 0 10px rgba(0, 217, 255, 0.6); }
+    .table-classement .stats { font-size: 10px; font-weight: 600; color: #888; font-family: var(--font-body); }
+    .table-classement .diff { font-size: 14px; font-weight: 800; }
+    .table-classement .diff-positive { color: var(--green); }
+    .table-classement .diff-negative { color: var(--red); }
+    /* BADGES 5 ZONES */
+    .position-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 5px; font-family: var(--font-body); font-size: 11px; font-weight: 700; }
+    .position-badge.gold { background: var(--zone-gold-bg); border: 1px solid var(--zone-gold-border); color: var(--gold); }
+    .position-badge.green { background: var(--zone-green-bg); border: 1px solid var(--zone-green-border); color: var(--green); }
+    .position-badge.cyan { background: var(--zone-cyan-bg); border: 1px solid var(--zone-cyan-border); color: var(--cyan); }
+    .position-badge.orange { background: var(--zone-orange-bg); border: 1px solid var(--zone-orange-border); color: var(--orange); }
+    .position-badge.red { background: var(--zone-red-bg); border: 1px solid var(--zone-red-border); color: var(--red); }
+    .caviste-compact { margin-top: 6px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; padding: 6px 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .caviste-compact .label { font-family: var(--font-body); font-size: 9px; font-weight: 700; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); letter-spacing: 1px; }
+    .caviste-compact .value { font-family: var(--font-display); font-size: 13px; font-weight: 800; text-transform: uppercase; color: var(--pink); }
+    /* PANTHÉON */
+    .table-pantheon { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .table-pantheon thead { background: var(--glass-bg-header); }
+    .table-pantheon th { padding: 5px 1px; font-family: var(--font-body); font-size: 9px; font-weight: 700; text-transform: uppercase; color: white; border-bottom: 1px solid var(--glass-border-strong); text-align: center; }
+    .table-pantheon td { padding: 5px 1px; font-family: var(--font-display); font-size: 13px; font-weight: 700; color: white; border-bottom: 1px solid rgba(255, 255, 255, 0.03); text-align: center; vertical-align: middle; }
+    .table-pantheon .col-pos { width: 28px; }
+    .table-pantheon .col-team { width: 90px; }
+    .table-pantheon .col-champ { width: 32px; }
+    .table-pantheon .col-total { width: 44px; }
+    .table-pantheon .team-name-compact { font-size: 14px; font-weight: 800; text-transform: uppercase; text-align: left; padding-left: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .table-pantheon .champ-count { font-size: 14px; font-weight: 700; color: rgba(255, 255, 255, 0.85); }
+    .table-pantheon .total-titles { font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--cyan); }
+    .table-pantheon .total-titles.gold { color: var(--gold); }
+    .table-pantheon .empty-cell { color: rgba(255, 255, 255, 0.2); font-size: 12px; }
+    .legend-box { margin-top: 20px; background: rgba(0, 217, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 8px; padding: 12px 16px; }
+    .legend-box h4 { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--cyan); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .legend-items { display: flex; flex-wrap: wrap; gap: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-badge { width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+    .legend-badge.gold { background: var(--zone-gold-bg); border: 1px solid var(--zone-gold-border); color: var(--gold); }
+    .legend-badge.green { background: var(--zone-green-bg); border: 1px solid var(--zone-green-border); color: var(--green); }
+    .legend-badge.cyan { background: var(--zone-cyan-bg); border: 1px solid var(--zone-cyan-border); color: var(--cyan); }
+    .legend-badge.orange { background: var(--zone-orange-bg); border: 1px solid var(--zone-orange-border); color: var(--orange); }
+    .legend-badge.red { background: var(--zone-red-bg); border: 1px solid var(--zone-red-border); color: var(--red); }
+    .legend-text { font-size: 10px; color: rgba(255, 255, 255, 0.6); }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0"><defs><linearGradient id="gradient-progress" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#00d9ff"/><stop offset="100%" style="stop-color:#00ff88"/></linearGradient></defs></svg>
+  <div class="maquette-header"><h1>🔧 Corrections v3.1</h1><p>Classement : badges 5 zones | Panthéon : tableau ultra-compact</p><span class="version-badge">Version 3.1</span></div>
+  <h2 class="section-title">Pages corrigées</h2>
+  <div class="phone-grid">
+    <!-- CLASSEMENT -->
+    <div class="phone-wrapper">
+      <div class="phone-label">Classement <span class="status">v3.1 ✓</span></div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="page-title"><h1>CLASSEMENT</h1></div>
+          <div class="menu-combined"><span class="icon">🏆</span><span class="text">Ligue des Hyènes</span><span class="separator">•</span><span class="text">Saison 9</span><span class="arrow">▾</span></div>
+          <div class="progress-circular"><div class="circle-container"><svg width="36" height="36" viewBox="0 0 36 36"><circle class="circle-bg" cx="18" cy="18" r="15.9"/><circle class="circle-fill" cx="18" cy="18" r="15.9"/></svg><span class="circle-text">74%</span></div><span class="info"><strong>J.53</strong> / 72 journées</span></div>
+          <div class="glass-card">
+            <table class="table-classement">
+              <thead><tr><th class="col-pos">#</th><th class="col-team" style="text-align:left;">Équipe</th><th class="col-pts">Pts</th><th class="col-vnd">V-N-D</th><th class="col-bpbc">BP-BC</th><th class="col-diff">+/-</th></tr></thead>
+              <tbody>
+                <!-- Pos 1 = GOLD -->
+                <tr><td><span class="position-badge gold">1</span></td><td class="team-name">Milan AC</td><td class="points-display">95</td><td class="stats">30-5-18</td><td class="stats">116-97</td><td class="diff diff-positive">+49</td></tr>
+                <!-- Pos 2-3 = GREEN -->
+                <tr><td><span class="position-badge green">2</span></td><td class="team-name">Stocky FC</td><td class="points-display">86</td><td class="stats">24-14-15</td><td class="stats">115-88</td><td class="diff diff-positive">+27</td></tr>
+                <tr><td><span class="position-badge green">3</span></td><td class="team-name">BimBam</td><td class="points-display">84</td><td class="stats">25-9-19</td><td class="stats">119-96</td><td class="diff diff-positive">+23</td></tr>
+                <!-- Pos 4-7 = CYAN -->
+                <tr><td><span class="position-badge cyan">4</span></td><td class="team-name">Dynamo Kev</td><td class="points-display">82</td><td class="stats">26-4-23</td><td class="stats">119-110</td><td class="diff diff-positive">+9</td></tr>
+                <tr><td><span class="position-badge cyan">5</span></td><td class="team-name">Traknar FC</td><td class="points-display">74</td><td class="stats">21-11-21</td><td class="stats">111-106</td><td class="diff diff-positive">+6</td></tr>
+                <tr><td><span class="position-badge cyan">6</span></td><td class="team-name">Comardinho</td><td class="points-display">71</td><td class="stats">20-11-22</td><td class="stats">98-102</td><td class="diff diff-negative">-4</td></tr>
+                <tr><td><span class="position-badge cyan">7</span></td><td class="team-name">FC Grinta</td><td class="points-display">68</td><td class="stats">18-14-21</td><td class="stats">95-99</td><td class="diff diff-negative">-4</td></tr>
+                <!-- Pos 8-9 = ORANGE -->
+                <tr><td><span class="position-badge orange">8</span></td><td class="team-name">Warnaque</td><td class="points-display">62</td><td class="stats">16-14-23</td><td class="stats">88-101</td><td class="diff diff-negative">-13</td></tr>
+                <tr><td><span class="position-badge orange">9</span></td><td class="team-name">Mamba Team</td><td class="points-display">55</td><td class="stats">14-13-26</td><td class="stats">82-108</td><td class="diff diff-negative">-26</td></tr>
+                <!-- Pos 10 = RED -->
+                <tr><td><span class="position-badge red">10</span></td><td class="team-name">Los Pájaros</td><td class="points-display">48</td><td class="stats">12-12-29</td><td class="stats">75-115</td><td class="diff diff-negative">-40</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="caviste-compact"><span class="label">Caviste :</span><span class="value">GUNNERS</span></div>
+        </div>
+        <div class="scroll-indicator">✓ Sans scroll</div>
+        <div class="bottom-nav"><div class="nav-item active"><span class="nav-icon">📊</span><span>Classement</span></div><div class="nav-item"><span class="nav-icon">⚽</span><span>Match</span></div><div class="nav-item"><span class="nav-icon">🏆</span><span>Palmarès</span></div><div class="nav-item"><span class="nav-icon">👑</span><span>Panthéon</span></div></div>
+      </div>
+    </div>
+    <!-- PANTHÉON -->
+    <div class="phone-wrapper">
+      <div class="phone-label">Panthéon <span class="status">v3.1 ✓</span></div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          <div class="page-title"><h1>PANTHÉON</h1></div>
+          <div class="glass-card">
+            <table class="table-pantheon">
+              <thead><tr><th class="col-pos">#</th><th class="col-team" style="text-align:left;padding-left:4px;">Équipe</th><th class="col-champ">🏆</th><th class="col-champ">🇫🇷</th><th class="col-champ">🇪🇸</th><th class="col-champ">🇮🇹</th><th class="col-champ">🏴󠁧󠁢󠁥󠁮󠁧󠁿</th><th class="col-total">Tot</th></tr></thead>
+              <tbody>
+                <tr><td><span class="position-badge gold">1</span></td><td class="team-name-compact">Milan AC</td><td class="champ-count">5</td><td class="champ-count">1</td><td class="champ-count">2</td><td class="champ-count">2</td><td class="champ-count">2</td><td><span class="total-titles gold">12</span></td></tr>
+                <tr><td><span class="position-badge cyan">2</span></td><td class="team-name-compact">BimBam</td><td class="empty-cell">–</td><td class="champ-count">2</td><td class="champ-count">1</td><td class="champ-count">2</td><td class="champ-count">3</td><td><span class="total-titles">8</span></td></tr>
+                <tr><td><span class="position-badge cyan">3</span></td><td class="team-name-compact">Stocky FC</td><td class="champ-count">2</td><td class="champ-count">1</td><td class="champ-count">1</td><td class="champ-count">1</td><td class="champ-count">2</td><td><span class="total-titles">7</span></td></tr>
+                <tr><td><span class="position-badge cyan">4</span></td><td class="team-name-compact">Comardinho</td><td class="champ-count">1</td><td class="champ-count">1</td><td class="champ-count">2</td><td class="empty-cell">–</td><td class="empty-cell">–</td><td><span class="total-titles">4</span></td></tr>
+                <tr><td><span class="position-badge cyan">5</span></td><td class="team-name-compact">Dynamo Kev</td><td class="empty-cell">–</td><td class="champ-count">2</td><td class="champ-count">1</td><td class="empty-cell">–</td><td class="champ-count">1</td><td><span class="total-titles">4</span></td></tr>
+                <tr><td><span class="position-badge cyan">6</span></td><td class="team-name-compact">Warnaque</td><td class="empty-cell">–</td><td class="champ-count">1</td><td class="champ-count">1</td><td class="empty-cell">–</td><td class="empty-cell">–</td><td><span class="total-titles">2</span></td></tr>
+                <tr><td><span class="position-badge cyan">7</span></td><td class="team-name-compact">Mamba Team</td><td class="empty-cell">–</td><td class="empty-cell">–</td><td class="empty-cell">–</td><td class="champ-count">2</td><td class="empty-cell">–</td><td><span class="total-titles">2</span></td></tr>
+                <tr><td><span class="position-badge cyan">8</span></td><td class="team-name-compact">Traknar FC</td><td class="empty-cell">–</td><td class="champ-count">1</td><td class="empty-cell">–</td><td class="empty-cell">–</td><td class="empty-cell">–</td><td><span class="total-titles">1</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="scroll-indicator">✓ Sans scroll</div>
+        <div class="bottom-nav"><div class="nav-item"><span class="nav-icon">📊</span><span>Classement</span></div><div class="nav-item"><span class="nav-icon">⚽</span><span>Match</span></div><div class="nav-item"><span class="nav-icon">🏆</span><span>Palmarès</span></div><div class="nav-item active"><span class="nav-icon">👑</span><span>Panthéon</span></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Légende -->
+  <div class="legend-box" style="max-width:500px;margin:40px auto;">
+    <h4>Légende des zones (Classement)</h4>
+    <div class="legend-items">
+      <div class="legend-item"><div class="legend-badge gold">1</div><span class="legend-text">Champion</span></div>
+      <div class="legend-item"><div class="legend-badge green">2</div><span class="legend-text">Podium (2-3)</span></div>
+      <div class="legend-item"><div class="legend-badge cyan">4</div><span class="legend-text">Milieu (4-7)</span></div>
+      <div class="legend-item"><div class="legend-badge orange">8</div><span class="legend-text">Danger (8-9)</span></div>
+      <div class="legend-item"><div class="legend-badge red">10</div><span class="legend-text">Caviste</span></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:40px 20px;color:rgba(255,255,255,0.4);font-size:12px;"><p>HyeneScores — Maquette v3.1</p><p style="margin-top:10px;color:var(--green);font-size:14px;">✅ Valides-tu ces corrections ?</p></div>
+</body>
+</html>
