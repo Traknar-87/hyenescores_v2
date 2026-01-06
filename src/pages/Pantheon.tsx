@@ -22,11 +22,9 @@ const teams: TeamStats[] = [
   { id: 8, name: 'TRAKNAR FC', ldh: null, france: 1, espagne: null, italie: null, angleterre: null, total: 1 },
 ];
 
-// Helper to get badge color class based on position
+// Panthéon: Gold for #1, Cyan for all others
 const getBadgeColor = (position: number): string => {
-  if (position === 1) return "gold";
-  if (position <= 3) return "green";
-  return "cyan";
+  return position === 1 ? "gold" : "cyan";
 };
 
 const Pantheon = () => {
