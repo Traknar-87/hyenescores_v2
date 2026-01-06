@@ -22,61 +22,72 @@ const teams: TeamStats[] = [
   { id: 8, name: 'TRAKNAR FC', ldh: null, france: 1, espagne: null, italie: null, angleterre: null, total: 1 },
 ];
 
+// Helper to get badge color class based on position
+const getBadgeColor = (position: number): string => {
+  if (position === 1) return "gold";
+  if (position <= 3) return "green";
+  return "cyan";
+};
+
 const Pantheon = () => {
   const renderCell = (value: number | null) => {
     if (value === null || value === 0) {
-      return <span className="pantheon-empty-cell">–</span>;
+      return <span className="ds-empty">–</span>;
     }
     return value;
   };
 
   return (
-    <div className="phone-screen">
-      <div className="pantheon-page">
-        {/* Header with glassmorphism title */}
-        <div className="pantheon-page-header">
-          <div className="pantheon-title-glass">
-            <h1 className="pantheon-page-title">PANTHÉON</h1>
-          </div>
-        </div>
+    <div className="ds-page">
+      {/* Title with glassmorphism + glow */}
+      <div className="ds-page-title">
+        <h1>Panthéon</h1>
+      </div>
 
-        {/* Table */}
-        <div className="pantheon-table-wrapper">
-          <div className="pantheon-table-container">
-            <table className="pantheon-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Équipe</th>
-                  <th>🏆</th>
-                  <th>🇫🇷</th>
-                  <th>🇪🇸</th>
-                  <th>🇮🇹</th>
-                  <th>🏴󠁧󠁢󠁥󠁮󠁧󠁿</th>
-                  <th>Total</th>
+      {/* Table Card */}
+      <div className="ds-card">
+        <table className="ds-table">
+          <thead>
+            <tr>
+              <th style={{ width: "36px" }}>#</th>
+              <th className="left">Équipe</th>
+              <th style={{ width: "32px" }}>🏆</th>
+              <th style={{ width: "32px" }}>🇫🇷</th>
+              <th style={{ width: "32px" }}>🇪🇸</th>
+              <th style={{ width: "32px" }}>🇮🇹</th>
+              <th style={{ width: "32px" }}>🏴󠁧󠁢󠁥󠁮󠁧󠁿</th>
+              <th style={{ width: "45px" }}>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {teams.map((team, index) => {
+              const position = index + 1;
+              const badgeColor = getBadgeColor(position);
+              const isChampion = position === 1;
+              
+              return (
+                <tr key={team.id}>
+                  <td>
+                    <span className={`ds-badge ${badgeColor}`}>{position}</span>
+                  </td>
+                  <td className="left">
+                    <span className="ds-team-name">{team.name}</span>
+                  </td>
+                  <td>{renderCell(team.ldh)}</td>
+                  <td>{renderCell(team.france)}</td>
+                  <td>{renderCell(team.espagne)}</td>
+                  <td>{renderCell(team.italie)}</td>
+                  <td>{renderCell(team.angleterre)}</td>
+                  <td>
+                    <span className={`ds-total ${isChampion ? "gold" : ""}`}>
+                      {team.total}
+                    </span>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {teams.map((team, index) => (
-                  <tr key={team.id} className={`pantheon-rank-${index + 1}`}>
-                    <td>
-                      <div className="pantheon-rank-badge">{index + 1}</div>
-                    </td>
-                    <td className="pantheon-team-name">{team.name}</td>
-                    <td>{renderCell(team.ldh)}</td>
-                    <td>{renderCell(team.france)}</td>
-                    <td>{renderCell(team.espagne)}</td>
-                    <td>{renderCell(team.italie)}</td>
-                    <td>{renderCell(team.angleterre)}</td>
-                    <td className="pantheon-total">{team.total}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="h-16" />
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
       <BottomNav />
