@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HyeneScores - Design System v4.0</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       DESIGN SYSTEM v4.0 - TOKENS
+       ============================================ */
+    :root {
+      /* Colors */
+      --color-bg: #000000;
+      --color-cyan: #00d9ff;
+      --color-green: #00ff88;
+      --color-gold: #FFB830;
+      --color-orange: #ff9933;
+      --color-red: #ff4444;
+      --color-pink: #ff3366;
+      --color-white: #ffffff;
+      --color-gray-100: rgba(255, 255, 255, 0.9);
+      --color-gray-200: rgba(255, 255, 255, 0.7);
+      --color-gray-300: rgba(255, 255, 255, 0.5);
+      --color-gray-400: rgba(255, 255, 255, 0.3);
+      --color-gray-500: rgba(255, 255, 255, 0.15);
+      --color-gray-600: rgba(255, 255, 255, 0.08);
+      --color-gray-700: rgba(255, 255, 255, 0.04);
+      
+      /* Glass */
+      --glass-bg: rgba(0, 217, 255, 0.03);
+      --glass-bg-hover: rgba(0, 217, 255, 0.08);
+      --glass-bg-active: rgba(0, 217, 255, 0.15);
+      --glass-border: rgba(0, 217, 255, 0.25);
+      --glass-border-strong: rgba(0, 217, 255, 0.5);
+      
+      /* Spacing - 4px base */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      
+      /* Border Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      
+      /* Typography */
+      --font-display: 'Rajdhani', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      
+      /* Fixed Heights */
+      --height-title: 56px;
+      --height-filter: 48px;
+      --height-table-header: 36px;
+      --height-table-row: 44px;
+      --height-badge: 26px;
+      --height-bottom-nav: 70px;
+      
+      /* Shadows & Glows */
+      --glow-cyan: 0 0 20px rgba(0, 217, 255, 0.4);
+      --glow-title: 0 0 10px rgba(0, 217, 255, 0.8), 0 0 20px rgba(0, 217, 255, 0.5), 0 0 40px rgba(0, 217, 255, 0.3);
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: #0a0a0a;
+      font-family: var(--font-body);
+      color: var(--color-white);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* ============================================
+       MOCKUP LAYOUT
+       ============================================ */
+    .mockup-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.05));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+    }
+    
+    .mockup-header h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--color-cyan);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+    
+    .mockup-header p {
+      font-size: 14px;
+      color: var(--color-gray-300);
+    }
+    
+    .version-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--color-cyan), var(--color-green));
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+    
+    .phone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+      gap: 30px;
+      max-width: 1700px;
+      margin: 0 auto;
+    }
+    
+    .phone-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .phone-label {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    
+    .phone-frame {
+      width: 390px;
+      height: 844px;
+      background: var(--color-bg);
+      border-radius: 40px;
+      border: 3px solid #333;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 217, 255, 0.1);
+    }
+    
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 34px;
+      background: #000;
+      border-radius: 0 0 20px 20px;
+      z-index: 100;
+    }
+    
+    .phone-content {
+      height: 100%;
+      padding: 50px var(--space-3) var(--height-bottom-nav);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    /* ============================================
+       COMPONENT: Page Title
+       ============================================ */
+    .ds-page-title {
+      height: var(--height-title);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border-strong);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+    }
+    
+    .ds-page-title h1 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--color-cyan);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-shadow: var(--glow-title);
+    }
+
+    /* ============================================
+       COMPONENT: Filter Bar
+       ============================================ */
+    .ds-filter-bar {
+      height: var(--height-filter);
+      display: flex;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    
+    .ds-filter-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      border-right: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .ds-filter-item:last-child {
+      border-right: none;
+    }
+    
+    .ds-filter-item:hover {
+      background: var(--glass-bg-hover);
+    }
+    
+    .ds-filter-item.active {
+      background: var(--glass-bg-active);
+    }
+    
+    .ds-filter-item .icon {
+      font-size: 18px;
+    }
+    
+    .ds-filter-item .label {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-white);
+      text-transform: uppercase;
+    }
+    
+    /* Filter with stacked content */
+    .ds-filter-item.stacked {
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .ds-filter-item.stacked .label {
+      font-size: 10px;
+    }
+
+    /* ============================================
+       COMPONENT: Progress Indicator
+       ============================================ */
+    .ds-progress {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      flex-shrink: 0;
+    }
+    
+    .ds-progress-circle {
+      position: relative;
+      width: 32px;
+      height: 32px;
+    }
+    
+    .ds-progress-circle svg {
+      transform: rotate(-90deg);
+    }
+    
+    .ds-progress-circle .bg {
+      fill: none;
+      stroke: var(--color-gray-500);
+      stroke-width: 3;
+    }
+    
+    .ds-progress-circle .fill {
+      fill: none;
+      stroke: url(#gradient-progress);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 26;
+    }
+    
+    .ds-progress-circle .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-body);
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--color-cyan);
+    }
+    
+    .ds-progress-label {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-gray-200);
+    }
+    
+    .ds-progress-label strong {
+      color: var(--color-white);
+      font-weight: 800;
+    }
+
+    /* ============================================
+       COMPONENT: Glass Card (Table Container)
+       ============================================ */
+    .ds-card {
+      flex: 1;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    /* ============================================
+       COMPONENT: Table
+       ============================================ */
+    .ds-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .ds-table thead {
+      background: var(--glass-bg-active);
+    }
+    
+    .ds-table th {
+      height: var(--height-table-header);
+      padding: 0 var(--space-2);
+      font-family: var(--font-body);
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-white);
+      border-bottom: 1px solid var(--glass-border-strong);
+      text-align: center;
+    }
+    
+    .ds-table th.left {
+      text-align: left;
+      padding-left: var(--space-3);
+    }
+    
+    .ds-table td {
+      height: var(--height-table-row);
+      padding: 0 var(--space-2);
+      font-family: var(--font-display);
+      color: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-600);
+      text-align: center;
+      vertical-align: middle;
+    }
+    
+    .ds-table td.left {
+      text-align: left;
+      padding-left: var(--space-2);
+    }
+    
+    .ds-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    
+    /* Team name */
+    .ds-team-name {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    
+    /* Points display */
+    .ds-points {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-white);
+    }
+    
+    .ds-points-green {
+      color: var(--color-green);
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+    
+    .ds-points-unit {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--color-gray-300);
+      margin-left: 2px;
+    }
+    
+    /* Stats */
+    .ds-stats {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--color-gray-300);
+    }
+    
+    /* Diff */
+    .ds-diff {
+      font-size: 13px;
+      font-weight: 800;
+    }
+    
+    .ds-diff.positive {
+      color: var(--color-green);
+    }
+    
+    .ds-diff.negative {
+      color: var(--color-red);
+    }
+    
+    /* Empty cell */
+    .ds-empty {
+      color: var(--color-gray-400);
+    }
+    
+    /* Total */
+    .ds-total {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--color-cyan);
+    }
+    
+    .ds-total.gold {
+      color: var(--color-gold);
+    }
+
+    /* ============================================
+       COMPONENT: Position Badge
+       ============================================ */
+    .ds-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--height-badge);
+      height: var(--height-badge);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    
+    /* Badge colors based on position */
+    .ds-badge.gold {
+      background: rgba(255, 184, 48, 0.2);
+      border: 1.5px solid rgba(255, 184, 48, 0.6);
+      color: var(--color-gold);
+    }
+    
+    .ds-badge.green {
+      background: rgba(0, 255, 136, 0.15);
+      border: 1.5px solid rgba(0, 255, 136, 0.5);
+      color: var(--color-green);
+    }
+    
+    .ds-badge.cyan {
+      background: rgba(0, 217, 255, 0.15);
+      border: 1.5px solid rgba(0, 217, 255, 0.5);
+      color: var(--color-cyan);
+    }
+    
+    .ds-badge.orange {
+      background: rgba(255, 153, 51, 0.15);
+      border: 1.5px solid rgba(255, 153, 51, 0.5);
+      color: var(--color-orange);
+    }
+    
+    .ds-badge.red {
+      background: rgba(255, 68, 68, 0.15);
+      border: 1.5px solid rgba(255, 68, 68, 0.5);
+      color: var(--color-red);
+    }
+
+    /* ============================================
+       COMPONENT: Season Badge (Palmarès)
+       ============================================ */
+    .ds-season-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 28px;
+      padding: 0 var(--space-2);
+      background: rgba(0, 217, 255, 0.15);
+      border: 1.5px solid rgba(0, 217, 255, 0.5);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--color-cyan);
+    }
+
+    /* ============================================
+       COMPONENT: Footer Bar (Caviste/Exempt)
+       ============================================ */
+    .ds-footer-bar {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+    }
+    
+    .ds-footer-bar .label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-gray-300);
+      letter-spacing: 1px;
+    }
+    
+    .ds-footer-bar .value {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--color-pink);
+    }
+    
+    .ds-footer-bar .arrow {
+      font-size: 10px;
+      color: var(--color-gray-400);
+    }
+
+    /* ============================================
+       COMPONENT: Match Row
+       ============================================ */
+    .ds-match-row {
+      display: grid;
+      grid-template-columns: 1fr 90px 1fr;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-2);
+      align-items: center;
+      border-bottom: 1px solid var(--color-gray-600);
+    }
+    
+    .ds-match-row:last-child {
+      border-bottom: none;
+    }
+    
+    .ds-team-select {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-gray-400);
+    }
+    
+    .ds-team-select.filled {
+      color: var(--color-white);
+      border-color: var(--glass-border-strong);
+    }
+    
+    .ds-team-select.validated {
+      color: var(--color-green);
+      border-color: rgba(0, 255, 136, 0.5);
+    }
+    
+    .ds-score-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+    
+    .ds-score-input {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 217, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--color-gray-400);
+    }
+    
+    .ds-score-input.filled {
+      color: var(--color-cyan);
+      border-color: var(--glass-border-strong);
+    }
+    
+    .ds-score-input.validated {
+      color: var(--color-green);
+      border-color: rgba(0, 255, 136, 0.5);
+      background: rgba(0, 255, 136, 0.1);
+    }
+    
+    .ds-vs {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-gray-400);
+    }
+    
+    .ds-vs.validated {
+      color: var(--color-green);
+    }
+
+    /* ============================================
+       COMPONENT: Bottom Navigation
+       ============================================ */
+    .ds-bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--height-bottom-nav);
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 10px;
+    }
+    
+    .ds-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      opacity: 0.5;
+      transition: all 0.2s ease;
+    }
+    
+    .ds-nav-item.active {
+      opacity: 1;
+    }
+    
+    .ds-nav-item .icon {
+      font-size: 20px;
+    }
+    
+    .ds-nav-item .label {
+      font-family: var(--font-body);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--color-white);
+    }
+    
+    .ds-nav-item.active .label {
+      color: var(--color-cyan);
+    }
+
+    /* ============================================
+       DESIGN SYSTEM DOCUMENTATION
+       ============================================ */
+    .ds-section {
+      margin-top: 60px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+    }
+    
+    .ds-section h2 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-cyan);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    
+    .ds-tokens {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .ds-token-group h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-gray-200);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    
+    .ds-color-swatch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .ds-color-box {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .ds-color-label {
+      font-size: 11px;
+      color: var(--color-gray-200);
+    }
+    
+    .ds-color-value {
+      font-family: monospace;
+      font-size: 10px;
+      color: var(--color-gray-400);
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Gradients -->
+  <svg width="0" height="0">
+    <defs>
+      <linearGradient id="gradient-progress" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#00d9ff"/>
+        <stop offset="100%" style="stop-color:#00ff88"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Header -->
+  <div class="mockup-header">
+    <h1>🎨 Design System v4.0</h1>
+    <p>Système de design unifié pour HyeneScores — Composants standardisés</p>
+    <span class="version-badge">Version 4.0 — Unified</span>
+  </div>
+
+  <!-- 4 Pages -->
+  <div class="phone-grid">
+    
+    <!-- ========== CLASSEMENT ========== -->
+    <div class="phone-wrapper">
+      <div class="phone-label">📊 Classement</div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          
+          <!-- Title -->
+          <div class="ds-page-title">
+            <h1>Classement</h1>
+          </div>
+          
+          <!-- Filter Bar -->
+          <div class="ds-filter-bar">
+            <div class="ds-filter-item active">
+              <span class="icon">🏆</span>
+              <span class="label">Ligue des Hyènes</span>
+            </div>
+            <div class="ds-filter-item">
+              <span class="label">Saison 9</span>
+              <span class="icon" style="font-size: 10px;">▾</span>
+            </div>
+          </div>
+          
+          <!-- Progress -->
+          <div class="ds-progress">
+            <div class="ds-progress-circle">
+              <svg width="32" height="32" viewBox="0 0 36 36">
+                <circle class="bg" cx="18" cy="18" r="15.9"/>
+                <circle class="fill" cx="18" cy="18" r="15.9"/>
+              </svg>
+              <span class="text">74%</span>
+            </div>
+            <span class="ds-progress-label"><strong>J.53</strong> / 72 journées</span>
+          </div>
+          
+          <!-- Table -->
+          <div class="ds-card">
+            <table class="ds-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px;">#</th>
+                  <th class="left">Équipe</th>
+                  <th style="width: 50px;">Pts</th>
+                  <th style="width: 70px;">V-N-D</th>
+                  <th style="width: 60px;">BP-BC</th>
+                  <th style="width: 45px;">+/-</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="ds-badge gold">1</span></td>
+                  <td class="left"><span class="ds-team-name">Milan AC</span></td>
+                  <td><span class="ds-points">95</span></td>
+                  <td><span class="ds-stats">30-5-18</span></td>
+                  <td><span class="ds-stats">116-97</span></td>
+                  <td><span class="ds-diff positive">+49</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge green">2</span></td>
+                  <td class="left"><span class="ds-team-name">Stocky FC</span></td>
+                  <td><span class="ds-points">86</span></td>
+                  <td><span class="ds-stats">24-14-15</span></td>
+                  <td><span class="ds-stats">115-88</span></td>
+                  <td><span class="ds-diff positive">+27</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge green">3</span></td>
+                  <td class="left"><span class="ds-team-name">BimBam</span></td>
+                  <td><span class="ds-points">84</span></td>
+                  <td><span class="ds-stats">25-9-19</span></td>
+                  <td><span class="ds-stats">119-96</span></td>
+                  <td><span class="ds-diff positive">+23</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">4</span></td>
+                  <td class="left"><span class="ds-team-name">Dynamo Kev</span></td>
+                  <td><span class="ds-points">82</span></td>
+                  <td><span class="ds-stats">26-4-23</span></td>
+                  <td><span class="ds-stats">119-110</span></td>
+                  <td><span class="ds-diff positive">+9</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">5</span></td>
+                  <td class="left"><span class="ds-team-name">Traknar FC</span></td>
+                  <td><span class="ds-points">74</span></td>
+                  <td><span class="ds-stats">21-11-21</span></td>
+                  <td><span class="ds-stats">111-106</span></td>
+                  <td><span class="ds-diff positive">+6</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">6</span></td>
+                  <td class="left"><span class="ds-team-name">FC Grinta</span></td>
+                  <td><span class="ds-points">74</span></td>
+                  <td><span class="ds-stats">22-8-23</span></td>
+                  <td><span class="ds-stats">96-102</span></td>
+                  <td><span class="ds-diff negative">-6</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">7</span></td>
+                  <td class="left"><span class="ds-team-name">Comardinho</span></td>
+                  <td><span class="ds-points">71</span></td>
+                  <td><span class="ds-stats">20-11-22</span></td>
+                  <td><span class="ds-stats">94-107</span></td>
+                  <td><span class="ds-diff negative">-13</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge orange">8</span></td>
+                  <td class="left"><span class="ds-team-name">Mamba Team</span></td>
+                  <td><span class="ds-points">64</span></td>
+                  <td><span class="ds-stats">18-10-25</span></td>
+                  <td><span class="ds-stats">96-110</span></td>
+                  <td><span class="ds-diff negative">-14</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge orange">9</span></td>
+                  <td class="left"><span class="ds-team-name">Warnaque</span></td>
+                  <td><span class="ds-points">61</span></td>
+                  <td><span class="ds-stats">17-10-26</span></td>
+                  <td><span class="ds-stats">94-110</span></td>
+                  <td><span class="ds-diff negative">-16</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge red">10</span></td>
+                  <td class="left"><span class="ds-team-name">NopiGoal FC</span></td>
+                  <td><span class="ds-points">61</span></td>
+                  <td><span class="ds-stats">15-12-26</span></td>
+                  <td><span class="ds-stats">86-121</span></td>
+                  <td><span class="ds-diff negative">-35</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Footer -->
+          <div class="ds-footer-bar">
+            <span class="label">Caviste :</span>
+            <span class="value">Gunners</span>
+          </div>
+          
+        </div>
+        
+        <!-- Bottom Nav -->
+        <div class="ds-bottom-nav">
+          <div class="ds-nav-item active">
+            <span class="icon">📊</span>
+            <span class="label">Classement</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">⚽</span>
+            <span class="label">Match</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">🏆</span>
+            <span class="label">Palmarès</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">👑</span>
+            <span class="label">Panthéon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MATCH ========== -->
+    <div class="phone-wrapper">
+      <div class="phone-label">⚽ Match</div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          
+          <!-- Title -->
+          <div class="ds-page-title">
+            <h1>Match</h1>
+          </div>
+          
+          <!-- Filter Bar -->
+          <div class="ds-filter-bar">
+            <div class="ds-filter-item stacked active">
+              <span class="icon">🇫🇷</span>
+              <span class="label">France</span>
+            </div>
+            <div class="ds-filter-item stacked">
+              <span class="icon">📅</span>
+              <span class="label">S9</span>
+            </div>
+            <div class="ds-filter-item stacked">
+              <span class="icon">⚽</span>
+              <span class="label">J.1 (0/5)</span>
+            </div>
+            <div class="ds-filter-item stacked" style="background: var(--glass-bg-active);">
+              <span class="icon">📤</span>
+              <span class="label">Import</span>
+            </div>
+          </div>
+          
+          <!-- Table -->
+          <div class="ds-card">
+            <table class="ds-table">
+              <thead>
+                <tr>
+                  <th>Équipe Dom.</th>
+                  <th style="width: 90px;">Score</th>
+                  <th>Équipe Ext.</th>
+                </tr>
+              </thead>
+            </table>
+            <div style="flex: 1; overflow-y: auto;">
+              <div class="ds-match-row">
+                <div class="ds-team-select validated">Milan AC</div>
+                <div class="ds-score-box">
+                  <div class="ds-score-input validated">3</div>
+                  <span class="ds-vs validated">-</span>
+                  <div class="ds-score-input validated">1</div>
+                </div>
+                <div class="ds-team-select validated">Stocky FC</div>
+              </div>
+              <div class="ds-match-row">
+                <div class="ds-team-select validated">BimBam</div>
+                <div class="ds-score-box">
+                  <div class="ds-score-input validated">2</div>
+                  <span class="ds-vs validated">-</span>
+                  <div class="ds-score-input validated">2</div>
+                </div>
+                <div class="ds-team-select validated">Dynamo Kev</div>
+              </div>
+              <div class="ds-match-row">
+                <div class="ds-team-select validated">Traknar FC</div>
+                <div class="ds-score-box">
+                  <div class="ds-score-input validated">4</div>
+                  <span class="ds-vs validated">-</span>
+                  <div class="ds-score-input validated">0</div>
+                </div>
+                <div class="ds-team-select validated">Warnaque</div>
+              </div>
+              <div class="ds-match-row">
+                <div class="ds-team-select">—</div>
+                <div class="ds-score-box">
+                  <div class="ds-score-input">-</div>
+                  <span class="ds-vs">-</span>
+                  <div class="ds-score-input">-</div>
+                </div>
+                <div class="ds-team-select">—</div>
+              </div>
+              <div class="ds-match-row">
+                <div class="ds-team-select">—</div>
+                <div class="ds-score-box">
+                  <div class="ds-score-input">-</div>
+                  <span class="ds-vs">-</span>
+                  <div class="ds-score-input">-</div>
+                </div>
+                <div class="ds-team-select">—</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <div class="ds-footer-bar" style="cursor: pointer;">
+            <span class="label">Exempt :</span>
+            <span class="value">Gunners</span>
+            <span class="arrow">▾</span>
+          </div>
+          
+        </div>
+        
+        <!-- Bottom Nav -->
+        <div class="ds-bottom-nav">
+          <div class="ds-nav-item">
+            <span class="icon">📊</span>
+            <span class="label">Classement</span>
+          </div>
+          <div class="ds-nav-item active">
+            <span class="icon">⚽</span>
+            <span class="label">Match</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">🏆</span>
+            <span class="label">Palmarès</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">👑</span>
+            <span class="label">Panthéon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PALMARES ========== -->
+    <div class="phone-wrapper">
+      <div class="phone-label">🏆 Palmarès</div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          
+          <!-- Title -->
+          <div class="ds-page-title">
+            <h1>Palmarès</h1>
+          </div>
+          
+          <!-- Filter Bar -->
+          <div class="ds-filter-bar">
+            <div class="ds-filter-item active">
+              <span class="icon">🏆</span>
+            </div>
+            <div class="ds-filter-item">
+              <span class="icon">🇫🇷</span>
+            </div>
+            <div class="ds-filter-item">
+              <span class="icon">🇪🇸</span>
+            </div>
+            <div class="ds-filter-item">
+              <span class="icon">🇮🇹</span>
+            </div>
+            <div class="ds-filter-item">
+              <span class="icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+            </div>
+          </div>
+          
+          <!-- Table -->
+          <div class="ds-card">
+            <table class="ds-table">
+              <thead>
+                <tr>
+                  <th style="width: 70px;">Saison</th>
+                  <th>Champion</th>
+                  <th style="width: 80px;">Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="ds-season-badge">9</span></td>
+                  <td><span class="ds-team-name">Traknar FC</span></td>
+                  <td><span class="ds-points-green">127</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-season-badge">8</span></td>
+                  <td><span class="ds-team-name">Milan AC</span></td>
+                  <td><span class="ds-points-green">142</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-season-badge">7</span></td>
+                  <td><span class="ds-team-name">Milan AC</span></td>
+                  <td><span class="ds-points-green">134</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-season-badge">6</span></td>
+                  <td><span class="ds-team-name">BimBam</span></td>
+                  <td><span class="ds-points-green">125</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-season-badge">5</span></td>
+                  <td><span class="ds-team-name">Milan AC</span></td>
+                  <td><span class="ds-points-green">129</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-season-badge">4</span></td>
+                  <td><span class="ds-team-name">Milan AC</span></td>
+                  <td><span class="ds-points-green">132</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-season-badge">3</span></td>
+                  <td><span class="ds-team-name">Stocky FC</span></td>
+                  <td><span class="ds-points-green">121</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-season-badge">2</span></td>
+                  <td><span class="ds-team-name">Milan AC</span></td>
+                  <td><span class="ds-points-green">138</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-season-badge">1</span></td>
+                  <td><span class="ds-team-name">Milan AC</span></td>
+                  <td><span class="ds-points-green">136</span><span class="ds-points-unit">pts</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+        
+        <!-- Bottom Nav -->
+        <div class="ds-bottom-nav">
+          <div class="ds-nav-item">
+            <span class="icon">📊</span>
+            <span class="label">Classement</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">⚽</span>
+            <span class="label">Match</span>
+          </div>
+          <div class="ds-nav-item active">
+            <span class="icon">🏆</span>
+            <span class="label">Palmarès</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">👑</span>
+            <span class="label">Panthéon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PANTHEON ========== -->
+    <div class="phone-wrapper">
+      <div class="phone-label">👑 Panthéon</div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-content">
+          
+          <!-- Title -->
+          <div class="ds-page-title">
+            <h1>Panthéon</h1>
+          </div>
+          
+          <!-- Table -->
+          <div class="ds-card" style="margin-top: 0;">
+            <table class="ds-table">
+              <thead>
+                <tr>
+                  <th style="width: 36px;">#</th>
+                  <th class="left">Équipe</th>
+                  <th style="width: 32px;">🏆</th>
+                  <th style="width: 32px;">🇫🇷</th>
+                  <th style="width: 32px;">🇪🇸</th>
+                  <th style="width: 32px;">🇮🇹</th>
+                  <th style="width: 32px;">🏴󠁧󠁢󠁥󠁮󠁧󠁿</th>
+                  <th style="width: 45px;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="ds-badge gold">1</span></td>
+                  <td class="left"><span class="ds-team-name">Milan AC</span></td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td><span class="ds-total gold">12</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge green">2</span></td>
+                  <td class="left"><span class="ds-team-name">Stocky FC</span></td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td><span class="ds-total">7</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge green">3</span></td>
+                  <td class="left"><span class="ds-team-name">Comardinho</span></td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td class="ds-empty">–</td>
+                  <td class="ds-empty">–</td>
+                  <td><span class="ds-total">4</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">4</span></td>
+                  <td class="left"><span class="ds-team-name">BimBam</span></td>
+                  <td class="ds-empty">–</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td><span class="ds-total">8</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">5</span></td>
+                  <td class="left"><span class="ds-team-name">Dynamo Kev</span></td>
+                  <td class="ds-empty">–</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td class="ds-empty">–</td>
+                  <td>1</td>
+                  <td><span class="ds-total">4</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">6</span></td>
+                  <td class="left"><span class="ds-team-name">Warnaque</span></td>
+                  <td class="ds-empty">–</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td class="ds-empty">–</td>
+                  <td class="ds-empty">–</td>
+                  <td><span class="ds-total">2</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">7</span></td>
+                  <td class="left"><span class="ds-team-name">Mamba Team</span></td>
+                  <td class="ds-empty">–</td>
+                  <td class="ds-empty">–</td>
+                  <td class="ds-empty">–</td>
+                  <td>2</td>
+                  <td class="ds-empty">–</td>
+                  <td><span class="ds-total">2</span></td>
+                </tr>
+                <tr>
+                  <td><span class="ds-badge cyan">8</span></td>
+                  <td class="left"><span class="ds-team-name">Traknar FC</span></td>
+                  <td class="ds-empty">–</td>
+                  <td>1</td>
+                  <td class="ds-empty">–</td>
+                  <td class="ds-empty">–</td>
+                  <td class="ds-empty">–</td>
+                  <td><span class="ds-total">1</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+        
+        <!-- Bottom Nav -->
+        <div class="ds-bottom-nav">
+          <div class="ds-nav-item">
+            <span class="icon">📊</span>
+            <span class="label">Classement</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">⚽</span>
+            <span class="label">Match</span>
+          </div>
+          <div class="ds-nav-item">
+            <span class="icon">🏆</span>
+            <span class="label">Palmarès</span>
+          </div>
+          <div class="ds-nav-item active">
+            <span class="icon">👑</span>
+            <span class="label">Panthéon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Design System Documentation -->
+  <div class="ds-section">
+    <h2>🎨 Design Tokens</h2>
+    <div class="ds-tokens">
+      <div class="ds-token-group">
+        <h3>Couleurs principales</h3>
+        <div class="ds-color-swatch">
+          <div class="ds-color-box" style="background: #00d9ff;"></div>
+          <span class="ds-color-label">Cyan</span>
+          <span class="ds-color-value">#00d9ff</span>
+        </div>
+        <div class="ds-color-swatch">
+          <div class="ds-color-box" style="background: #00ff88;"></div>
+          <span class="ds-color-label">Green</span>
+          <span class="ds-color-value">#00ff88</span>
+        </div>
+        <div class="ds-color-swatch">
+          <div class="ds-color-box" style="background: #FFB830;"></div>
+          <span class="ds-color-label">Gold</span>
+          <span class="ds-color-value">#FFB830</span>
+        </div>
+        <div class="ds-color-swatch">
+          <div class="ds-color-box" style="background: #ff9933;"></div>
+          <span class="ds-color-label">Orange</span>
+          <span class="ds-color-value">#ff9933</span>
+        </div>
+        <div class="ds-color-swatch">
+          <div class="ds-color-box" style="background: #ff4444;"></div>
+          <span class="ds-color-label">Red</span>
+          <span class="ds-color-value">#ff4444</span>
+        </div>
+        <div class="ds-color-swatch">
+          <div class="ds-color-box" style="background: #ff3366;"></div>
+          <span class="ds-color-label">Pink</span>
+          <span class="ds-color-value">#ff3366</span>
+        </div>
+      </div>
+      <div class="ds-token-group">
+        <h3>Hauteurs fixes</h3>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Titre: 56px</p>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Filter Bar: 48px</p>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Table Header: 36px</p>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Table Row: 44px</p>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Badge: 26px</p>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Bottom Nav: 70px</p>
+      </div>
+      <div class="ds-token-group">
+        <h3>Espacements</h3>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Gap entre composants: 12px</p>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Padding horizontal: 12px</p>
+        <p style="font-size: 11px; color: var(--color-gray-300); margin-bottom: 8px;">Border radius: 10px</p>
+      </div>
+      <div class="ds-token-group">
+        <h3>Badges par position</h3>
+        <p style="font-size: 11px; color: var(--color-gold); margin-bottom: 8px;">1 → Gold (Champion)</p>
+        <p style="font-size: 11px; color: var(--color-green); margin-bottom: 8px;">2-3 → Green (Podium)</p>
+        <p style="font-size: 11px; color: var(--color-cyan); margin-bottom: 8px;">4-7 → Cyan (Milieu)</p>
+        <p style="font-size: 11px; color: var(--color-orange); margin-bottom: 8px;">8-9 → Orange (Danger)</p>
+        <p style="font-size: 11px; color: var(--color-red); margin-bottom: 8px;">10 → Red (Caviste)</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding: 40px 20px; color: var(--color-gray-400); font-size: 12px;">
+    <p>HyeneScores — Design System v4.0</p>
+    <p style="margin-top: 10px; color: var(--color-green);">✅ Composants unifiés — Prêt pour implémentation</p>
+  </div>
+
+</body>
+</html>
