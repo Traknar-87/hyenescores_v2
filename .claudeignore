@@ -1,0 +1,72 @@
+# .claudeignore
+# Fichiers et dossiers à exclure de l'analyse Claude Code
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.turbo/
+
+# Cache
+.cache/
+.vite/
+.parcel-cache/
+.eslintcache
+
+# Environment
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env*.local
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Mockups (optionnel, décommenter si trop lourd)
+# docs/mockups/
+
+# Documentation heavy (si besoin de performances)
+# Décommenter si les docs ralentissent Claude Code
+# docs/DESIGN-SYSTEM.md
+# docs/ARCHITECTURE.md
