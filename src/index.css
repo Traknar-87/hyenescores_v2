@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Rajdhani:wght@500;600;700&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -80,16 +80,16 @@
     --shadow-menu: 0 4px 12px rgba(0, 217, 255, 0.3);
     --shadow-phone: 0 30px 80px rgba(0, 217, 255, 0.2);
 
-    /* v4.0 - Teal Opaque System */
+    /* v4.1 - Teal Opaque System RENFORCÉ */
     --teal-page-bg: #0a1e1e;
-    --teal-card-bg: rgba(0, 100, 120, 0.25);
-    --teal-header-bg: rgba(0, 100, 120, 0.35);
-    --teal-row-hover: rgba(0, 100, 120, 0.4);
+    --teal-card-bg: rgba(0, 100, 120, 0.40);
+    --teal-header-bg: rgba(0, 100, 120, 0.50);
+    --teal-row-hover: rgba(0, 100, 120, 0.55);
 
     /* Borders renforcées */
-    --cyan-border: rgba(0, 217, 255, 0.4);
-    --cyan-border-strong: rgba(0, 217, 255, 0.6);
-    --cyan-border-title: rgba(0, 217, 255, 0.5);
+    --cyan-border: rgba(0, 217, 255, 0.65);
+    --cyan-border-strong: rgba(0, 217, 255, 0.85);
+    --cyan-border-title: rgba(0, 217, 255, 0.75);
   }
 
   .dark {
@@ -413,7 +413,7 @@
   }
 
 /* ================================================
-   DESIGN SYSTEM - CLASSES GLOBALES v3.1
+   DESIGN SYSTEM - CLASSES GLOBALES v4.1
    ================================================ */
 
 /* Page container */
@@ -427,8 +427,8 @@
 
 /* Page title */
 .ds-page-title {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.5);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border-title);
   border-radius: 10px;
   padding: 10px 12px;
   text-align: center;
@@ -506,8 +506,8 @@
 /* Card container */
 .ds-card {
   flex: 1;
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 12px;
   padding: 12px;
   overflow: hidden;
@@ -522,8 +522,8 @@
 }
 
 .ds-table thead {
-  background: rgba(0, 100, 120, 0.35);
-  border-bottom: 2px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-header-bg);
+  border-bottom: 2px solid var(--cyan-border);
 }
 
 .ds-table th {
@@ -551,7 +551,7 @@
 }
 
 .ds-table tbody tr:hover {
-  background: rgba(0, 100, 120, 0.4);
+  background: var(--teal-row-hover);
 }
 
 .ds-table td {
@@ -785,13 +785,13 @@
 }
 
 /* ================================================
-   CLASSEMENT PAGE v3.1 STYLES
+   CLASSEMENT PAGE v4.1 STYLES
    ================================================ */
 
 /* Title with glassmorphism + glow */
 .classement-title-glass {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.5);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border-title);
   border-radius: 10px;
   padding: 10px 12px;
   text-align: center;
@@ -818,8 +818,8 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 10px;
   padding: 8px 12px;
   margin: 0 8px 12px;
@@ -848,8 +848,8 @@
 
 /* Filter Bar 2 lignes - Classement */
 .ds-filter-bar-2lines {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 10px;
   padding: 8px 12px;
   margin-bottom: 8px;
@@ -1122,7 +1122,7 @@
 }
 
 /* ========================================
-   MATCH PAGE STYLES v3.1
+   MATCH PAGE STYLES v4.1
 ======================================== */
 
 .match-content {
@@ -1132,8 +1132,8 @@
 
 /* Title with glassmorphism + glow */
 .match-title-glass {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.5);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border-title);
   border-radius: 10px;
   padding: 10px 12px;
   text-align: center;
@@ -1157,8 +1157,8 @@
 /* 4-Segment Selection Bar */
 .match-segment-bar {
   display: flex;
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 10px;
   margin-bottom: 12px;
   overflow: visible;
@@ -1299,8 +1299,8 @@
 
 /* EXEMPT Variante 4 - Two stacked lines */
 .exempt-v4 {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 8px;
   padding: 8px 12px;
   height: 48px;
@@ -1459,8 +1459,8 @@
 
 /* Matches Card */
 .matches-card {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 16px;
   padding: 12px;
   overflow: hidden;
@@ -1471,9 +1471,9 @@
   grid-template-columns: 1fr 90px 1fr;
   gap: 8px;
   padding: 10px 8px;
-  background: rgba(0, 100, 120, 0.35);
+  background: var(--teal-header-bg);
   border-radius: 8px 8px 0 0;
-  border-bottom: 2px solid rgba(0, 217, 255, 0.4);
+  border-bottom: 2px solid var(--cyan-border);
   margin: -12px -12px 0 -12px;
 }
 
@@ -1507,7 +1507,7 @@
   border-bottom: none;
 }
 
-/* v3.1: Validated rows - green only on scores/teams, not whole card */
+/* v4.1: Validated rows - green only on scores/teams, not whole card */
 .match-row.validated {
   background: transparent;
   border: none;
@@ -1606,7 +1606,7 @@
 .team-select {
   width: 100%;
   background: transparent;
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  border: 1px solid var(--cyan-border);
   border-radius: 6px;
   padding: 8px 6px;
   font-family: 'Rajdhani', sans-serif;
@@ -2093,7 +2093,7 @@
 }
 
 /* ============================================
-   PALMARES PAGE v3.1 - NOIR PUR + FUSED BAR
+   PALMARES PAGE v4.1 - NOIR PUR + FUSED BAR
    ============================================ */
 
 /* Padding bottom pour séparation barre nav */
@@ -2114,8 +2114,8 @@
 
 /* Glassmorphism Title */
 .palmares-title-glass {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.5);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border-title);
   border-radius: 10px;
   padding: 10px 12px;
   text-align: center;
@@ -2138,8 +2138,8 @@
 /* Fused Horizontal Filter Bar */
 .palmares-filter-bar {
   display: flex;
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -2173,8 +2173,8 @@
 
 /* Table Card with integrated header */
 .palmares-table-card {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -2184,8 +2184,8 @@
   grid-template-columns: 60px 1fr 80px;
   gap: 8px;
   padding: 10px 12px;
-  background: rgba(0, 100, 120, 0.35);
-  border-bottom: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-header-bg);
+  border-bottom: 1px solid var(--cyan-border);
 }
 
 .palmares-table-header span {
@@ -2221,7 +2221,7 @@
 }
 
 .palmares-row:hover {
-  background: rgba(0, 100, 120, 0.4);
+  background: var(--teal-row-hover);
 }
 
 /* Season Column */
@@ -2345,7 +2345,7 @@
 }
 
 /* ================================================
-   PANTHEON PAGE STYLES - ULTRA COMPACT TABLE v3.1
+   PANTHEON PAGE STYLES - ULTRA COMPACT TABLE v4.1
    ================================================ */
 
 /* Padding bottom pour séparation barre nav */
@@ -2361,8 +2361,8 @@
 
 /* Title with glassmorphism + glow 3 layers */
 .pantheon-title-glass {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.5);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border-title);
   border-radius: 10px;
   padding: 10px 12px;
   text-align: center;
@@ -2387,8 +2387,8 @@
 }
 
 .pantheon-table-container {
-  background: rgba(0, 100, 120, 0.25);
-  border: 1px solid rgba(0, 217, 255, 0.4);
+  background: var(--teal-card-bg);
+  border: 1px solid var(--cyan-border);
   border-radius: 12px;
   overflow: hidden;
 }
@@ -2399,7 +2399,7 @@
 }
 
 .pantheon-table thead {
-  background: rgba(0, 100, 120, 0.35);
+  background: var(--teal-header-bg);
 }
 
 /* Ultra-compact headers */
