@@ -525,7 +525,7 @@
   background: var(--teal-header-bg);
   border-bottom: 2px solid var(--cyan-border);
   margin: -12px -12px 0 -12px;
-  border-radius: 8px 8px 0 0;
+  border-radius: 12px 12px 0 0;
 }
 
 .ds-table th {
