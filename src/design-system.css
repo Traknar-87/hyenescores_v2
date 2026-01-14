@@ -234,6 +234,7 @@
 
 /* ============================================
    COMPONENT: Glass Card (Table Container)
+   V4: No padding - table full width pour effet flush
    ============================================ */
 .ds-card {
   flex: 1;
@@ -244,6 +245,7 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
+  /* V4: Pas de padding - headers et rows touchent les bords */
 }
 
 /* ============================================
